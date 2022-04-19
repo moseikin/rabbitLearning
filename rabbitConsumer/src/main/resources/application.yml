@@ -1,0 +1,5 @@
+spring:
+  rabbitmq:
+    exchangename: directexchange
+    queuename: queuename
+    queuename-2: queuename-2
