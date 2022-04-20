@@ -5,3 +5,6 @@ spring:
     exchangename: directexchange
     queuename: queuename
     queuename-2: queuename-2
+    queuename-hard: queuename-hard
+#    # Если не определено, будет использован порт по-умолчанию: 5672
+#    addresses: localhost:5672, localhost:15672

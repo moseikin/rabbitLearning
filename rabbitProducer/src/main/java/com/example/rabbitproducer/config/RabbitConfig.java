@@ -20,28 +20,41 @@ public class RabbitConfig {
     @Value(value = "${spring.rabbitmq.queuename-2}")
     private String queueName2;
 
+    @Value(value = "${spring.rabbitmq.queuename-hard}")
+    private String queueNameHard;
+
     @Bean
-    public DirectExchange directExchange(){
+    public DirectExchange directExchange() {
         return new DirectExchange(exchangeName, true, false);
     }
 
     @Bean
-    public Queue queue(){
+    public Queue queue() {
         return new Queue(queueName, true, false, false);
     }
 
     @Bean
-    public Binding binding(){
+    public Binding binding() {
         return BindingBuilder.bind(queue()).to(directExchange()).with(queueName);
     }
 
     @Bean
-    public Queue queue2(){
+    public Queue queue2() {
         return new Queue(queueName2, true, false, false);
     }
 
     @Bean
-    public Binding binding2(){
+    public Binding binding2() {
         return BindingBuilder.bind(queue2()).to(directExchange()).with(queueName2);
+    }
+
+    @Bean
+    public Queue queueNameHard() {
+        return new Queue(queueNameHard, true, false, false);
+    }
+
+    @Bean
+    public Binding bindingHard() {
+        return BindingBuilder.bind(queueNameHard()).to(directExchange()).with(queueNameHard);
     }
 }
