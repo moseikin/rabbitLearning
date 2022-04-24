@@ -1,5 +1,5 @@
-#server:
-#  address: "localhost"
+server:
+  port: 8081
 spring:
   rabbitmq:
     #    # Если не определено, будет использован порт по-умолчанию: 5672

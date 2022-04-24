@@ -7,42 +7,34 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@PropertySource(value = {"classpath:rabbit-queues.properties"})
 public class MessageServiceImpl implements MessageService {
 
     private final ObjectMapper objectMapper;
 
     @RabbitHandler
-    @RabbitListener(queues = "${spring.rabbitmq.queuename}")
+    @RabbitListener(queues = "${queue.simple-message-queue}")
     @Override
     public void receiveMessage(@Payload String message) {
         log.info("Message from queue: " + message);
     }
 
     @RabbitHandler
-    @RabbitListener(queues = "${spring.rabbitmq.queuename-2}")
-    @Override
-    public void receiveMessageQueue2(@Payload String message) {
-        log.info("Message from queue2: " + message);
-    }
-
-    @RabbitHandler
-    @RabbitListener(queues = "${spring.rabbitmq.queuename-hard}")
+    @RabbitListener(queues = "${queue.hard-message-queue}")
     @Override
     public void receiveHardMessage(@Payload String s) {
-        HardDto hardDto = null;
         try {
-            hardDto = objectMapper.readValue(s, HardDto.class);
+            HardDto hardDto = objectMapper.readValue(s, HardDto.class);
             log.info("received hard: " + hardDto);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-
         }
-
     }
 }

@@ -4,7 +4,5 @@ public interface MessageService {
 
     void receiveMessage(String message);
 
-    void receiveMessageQueue2(String message);
-
     void receiveHardMessage(String s);
 }

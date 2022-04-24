@@ -4,20 +4,25 @@ import com.example.rabbitproducer.dto.HardDto;
 import com.example.rabbitproducer.dto.MessageDto;
 import com.example.rabbitproducer.service.MessageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/")
 @RequiredArgsConstructor
+@Slf4j
 public class MessageController {
 
     private final MessageService messageService;
 
+    @GetMapping(path = "/")
+    public String hello() {
+        return "hello";
+    }
+
     @PostMapping(path = "/message")
     public MessageDto postMessage(@RequestBody MessageDto messageDto) {
+        log.info("INTO THE CONTROLLER");
         return messageService.sendMessage(messageDto);
     }
 

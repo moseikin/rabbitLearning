@@ -8,3 +8,23 @@ services:
     ports:
       - '5672:5672'
       - '15672:15672'
+  consumer-service:
+    container_name: consumer-service
+    build:
+      context: ./rabbitConsumer
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - '8081:8081'
+    depends_on:
+      - rabbit
+  producer-service:
+    container_name: producer-service
+    build:
+      context: ./rabbitProducer
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - '8080:8080'
+    depends_on:
+      - rabbit

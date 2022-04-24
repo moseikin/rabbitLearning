@@ -1,15 +1,33 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.6'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+//    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+//    id 'org.springframework.boot' version '2.6.6'
 }
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
 
 
 dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.amqp:spring-rabbit-test'
 }
+
+test {
+    useJUnitPlatform()
+}
+
+//allprojects {
+//    task dockerDeploy (type: Exec){
+//        dependsOn('build')
+//        workingDir '../'
+//        commandLine  'docker-compose','-f','docker-compose.yml','up','--build','-d', "$project.name"
+//    }
+//}
+
+
 

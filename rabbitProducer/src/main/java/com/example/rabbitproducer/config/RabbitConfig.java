@@ -7,54 +7,54 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
+@PropertySource(value = {"classpath:rabbit-queues.properties"})
 public class RabbitConfig {
 
-    @Value(value = "${spring.rabbitmq.exchangename}")
-    private String exchangeName;
+    @Value(value = "${exchange.direct-exchange}")
+    private String directExchangeName;
 
-    @Value(value = "${spring.rabbitmq.queuename}")
-    private String queueName;
+    @Value(value = "${queue.simple-message-queue}")
+    private String simpleMessageQueueName;
 
-    @Value(value = "${spring.rabbitmq.queuename-2}")
-    private String queueName2;
-
-    @Value(value = "${spring.rabbitmq.queuename-hard}")
-    private String queueNameHard;
+    @Value(value = "${queue.hard-message-queue}")
+    private String hardMessageQueueName;
 
     @Bean
     public DirectExchange directExchange() {
-        return new DirectExchange(exchangeName, true, false);
+        return new DirectExchange(directExchangeName, true, false);
     }
 
     @Bean
     public Queue queue() {
-        return new Queue(queueName, true, false, false);
+        return new Queue(simpleMessageQueueName, true, false, false);
     }
 
     @Bean
     public Binding binding() {
-        return BindingBuilder.bind(queue()).to(directExchange()).with(queueName);
-    }
-
-    @Bean
-    public Queue queue2() {
-        return new Queue(queueName2, true, false, false);
-    }
-
-    @Bean
-    public Binding binding2() {
-        return BindingBuilder.bind(queue2()).to(directExchange()).with(queueName2);
+        return BindingBuilder.bind(queue()).to(directExchange()).with(simpleMessageQueueName);
     }
 
     @Bean
     public Queue queueNameHard() {
-        return new Queue(queueNameHard, true, false, false);
+        return new Queue(hardMessageQueueName, true, false, false);
     }
 
     @Bean
     public Binding bindingHard() {
-        return BindingBuilder.bind(queueNameHard()).to(directExchange()).with(queueNameHard);
+        return BindingBuilder.bind(queueNameHard()).to(directExchange()).with(hardMessageQueueName);
+    }
+
+    @Bean
+    public Map<String, String> queueNames() {
+        Map<String, String> names = new HashMap<>();
+        names.put("simple-message-queue", simpleMessageQueueName);
+        names.put("hard-message-queue", hardMessageQueueName);
+        return names;
     }
 }

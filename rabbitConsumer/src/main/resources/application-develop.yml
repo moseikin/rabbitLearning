@@ -1,4 +1,4 @@
 spring:
   rabbitmq:
     # Если не определено, будет использован порт по-умолчанию: 5672
-    addresses: rabbit:5672, rabbit:15672
+    addresses: localhost:5672, localhost:15672

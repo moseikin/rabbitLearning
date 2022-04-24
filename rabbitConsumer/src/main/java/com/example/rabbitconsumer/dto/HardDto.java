@@ -10,10 +10,6 @@ import java.util.List;
 @Setter
 public class HardDto implements Serializable {
 
-    private String exchange;
-
-    private String routingKey;
-
     private String simpleString;
 
     private int simpleInt;
@@ -26,9 +22,7 @@ public class HardDto implements Serializable {
     @Override
     public String toString() {
         return "HardDto{" +
-                "exchange='" + exchange + '\'' +
-                ", routingKey='" + routingKey + '\'' +
-                ", simpleString='" + simpleString + '\'' +
+                "simpleString='" + simpleString + '\'' +
                 ", simpleInt=" + simpleInt +
                 ", strings=" + strings +
                 ", hardDtoItems=" + hardDtoItems +

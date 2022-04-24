@@ -7,7 +7,5 @@ import lombok.Setter;
 @Getter
 public class MessageDto {
 
-    private String exchange;
-    private String routingKey;
     private String message;
 }
